@@ -19,10 +19,14 @@ const handler = {
                     };
                     const newCallback = callback => {
                         return (...args) => {
+                            const err = args[0];
+                            const message = args[1];
+
                             ctx.status = {
                                 code: grpc.status.OK,
+                                message: message.message,
                             };
-                            const err = args[0];
+                            
                             if (err) {
                                 ctx.status = {
                                     code: grpc.status.UNKNOWN,
